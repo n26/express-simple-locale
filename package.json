@@ -1,0 +1,26 @@
+{
+  "name": "express-simple-locale",
+  "description": "A simple Express middleware to guess the short-locale of a user.",
+  "author": "N26",
+  "scripts": {
+    "test": "jest",
+    "lint": "standard"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "jest": "^20.0.4",
+    "standard": "^10.0.2"
+  },
+  "dependencies": {
+    "lodash.get": "^4.4.2"
+  },
+  "standard": {
+    "env": {
+      "jest": true
+    },
+    "parser": "babel-eslint"
+  }
+}
