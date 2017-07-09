@@ -49,6 +49,10 @@ export const getLocale = options => request => {
   return getSupported(getLanguage(getFromRequest(request)))
 }
 
+export const getSupportedLanguage = options => localeString => {
+  return getSupportedLocale(options)(getLanguage(localeString))
+}
+
 export default options => (request, response, next) => {
   const key = get(options, 'key', 'locale')
 

@@ -3,7 +3,8 @@ import locale, {
   getLanguage,
   getLocale,
   isLocaleSupported,
-  getSupportedLocale
+  getSupportedLocale,
+  getSupportedLanguage
 } from './'
 
 describe('The `getLocaleFromRequest` helper', () => {
@@ -168,6 +169,24 @@ describe('The `getSupportedLocale` helper', () => {
 describe('The `getLocale` helper', () => {
   it('should return locale', () => {
     const actual = getLocale()()
+    const expected = 'en'
+
+    expect(actual).toEqual(expected)
+  })
+})
+
+describe('The `getSupportedLanguage` helper', () => {
+  it('should return language if passed locale is supported', () => {
+    const options = { supportedLanguages: ['fr'], defaultLanguage: 'en' }
+    const actual = getSupportedLanguage(options)('fr_FR')
+    const expected = 'fr'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should return default language if passed locale is not supported', () => {
+    const options = { supportedLanguages: ['fr'], defaultLanguage: 'en' }
+    const actual = getSupportedLanguage(options)('foo_BAR')
     const expected = 'en'
 
     expect(actual).toEqual(expected)
