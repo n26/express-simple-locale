@@ -21,8 +21,11 @@ describe('The `getLocaleFromRequest` helper', () => {
     expect(actual).toEqual(expected)
   })
 
-  it('should return headers.accept-language from request if any', () => {
-    const actual = getLocaleFromRequest()({ headers: { 'accept-language': 'foo' } })
+  it('should return `accept-language` header from request if any', () => {
+    const mockedRequest = {
+      get: headerKey => ({ 'accept-language': 'foo' }[headerKey])
+    }
+    const actual = getLocaleFromRequest()(mockedRequest)
     const expected = 'foo'
 
     expect(actual).toEqual(expected)
@@ -44,12 +47,13 @@ describe('The `getLocaleFromRequest` helper', () => {
   })
 
   it('should respect priority order', () => {
+    const mockedRequest = headerKey => ({ 'accept-language': '3' }[headerKey])
     const options = { cookieName: 'cookieLocale' }
 
     let actual = getLocaleFromRequest(options)({
       query: { locale: '1' },
       cookies: { cookieLocale: '2' },
-      headers: { 'accept-language': '3' },
+      get: mockedRequest,
       acceptedLanguages: '4',
       hostname: { locale: '5' }
     })
@@ -58,7 +62,7 @@ describe('The `getLocaleFromRequest` helper', () => {
 
     actual = getLocaleFromRequest(options)({
       cookies: { cookieLocale: '2' },
-      headers: { 'accept-language': '3' },
+      get: mockedRequest,
       acceptedLanguages: '4',
       hostname: { locale: '5' }
     })
@@ -66,7 +70,7 @@ describe('The `getLocaleFromRequest` helper', () => {
     expect(actual).toEqual(expected)
 
     actual = getLocaleFromRequest(options)({
-      headers: { 'accept-language': '3' },
+      get: mockedRequest,
       acceptedLanguages: '4',
       hostname: { locale: '5' }
     })
