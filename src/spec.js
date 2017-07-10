@@ -1,10 +1,9 @@
 import locale, {
   getLocaleFromRequest,
-  getLanguage,
+  shortenLocale,
   getLocale,
   isLocaleSupported,
-  getSupportedLocale,
-  getSupportedLanguage
+  getSupportedLocale
 } from './'
 
 describe('The `getLocaleFromRequest` helper', () => {
@@ -100,30 +99,30 @@ describe('The `getLocaleFromRequest` helper', () => {
   })
 })
 
-describe('The `getLanguage` helper', () => {
+describe('The `shortenLocale` helper', () => {
   it('should explode locale on hyphens', () => {
-    const actual = getLanguage('en-GB')
+    const actual = shortenLocale('en-GB')
     const expected = 'en'
 
     expect(actual).toEqual(expected)
   })
 
   it('should explode locale on underscores', () => {
-    const actual = getLanguage('en_GB')
+    const actual = shortenLocale('en_GB')
     const expected = 'en'
 
     expect(actual).toEqual(expected)
   })
 
   it('should explode locale on spaces', () => {
-    const actual = getLanguage('en GB')
+    const actual = shortenLocale('en GB')
     const expected = 'en'
 
     expect(actual).toEqual(expected)
   })
 
   it('should trim result', () => {
-    const actual = getLanguage('en -')
+    const actual = shortenLocale('en -')
     const expected = 'en'
 
     expect(actual).toEqual(expected)
@@ -132,7 +131,7 @@ describe('The `getLanguage` helper', () => {
 
 describe('The `isLocaleSupported` helper', () => {
   it('should return `true` if locale is supported', () => {
-    const options = { supportedLanguages: ['en'] }
+    const options = { supportedLocales: ['en'] }
     const actual = isLocaleSupported(options)('en')
     const expected = true
 
@@ -140,7 +139,7 @@ describe('The `isLocaleSupported` helper', () => {
   })
 
   it('should return `false` if locale is not supported', () => {
-    const options = { supportedLanguages: ['en'] }
+    const options = { supportedLocales: ['en'] }
     const actual = isLocaleSupported(options)('foobar')
     const expected = false
 
@@ -149,17 +148,33 @@ describe('The `isLocaleSupported` helper', () => {
 })
 
 describe('The `getSupportedLocale` helper', () => {
-  it('should return locale if supported', () => {
-    const options = { supportedLanguages: ['fr'], defaultLanguage: 'en' }
+  it('should return locale if passed short locale is supported', () => {
+    const options = { supportedLocales: ['fr'], defaultLocale: 'en' }
     const actual = getSupportedLocale(options)('fr')
     const expected = 'fr'
 
     expect(actual).toEqual(expected)
   })
 
-  it('should return default locale if not supported', () => {
-    const options = { supportedLanguages: ['fr'], defaultLanguage: 'en' }
-    const actual = getSupportedLocale(options)('foobar')
+  it('should return locale if passed long locale is supported', () => {
+    const options = { supportedLocales: ['fr'], defaultLocale: 'en' }
+    const actual = getSupportedLocale(options)('fr_FR')
+    const expected = 'fr'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should return default locale if passed locale is not supported', () => {
+    const options = { supportedLocales: ['fr'], defaultLocale: 'it' }
+    const actual = getSupportedLocale(options)('foo_BAR')
+    const expected = 'it'
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('should return fallback locale if passed locale is not supported and default locale is not defined', () => {
+    const options = { supportedLocales: ['fr'] }
+    const actual = getSupportedLocale(options)('foo_BAR')
     const expected = 'en'
 
     expect(actual).toEqual(expected)
@@ -169,24 +184,6 @@ describe('The `getSupportedLocale` helper', () => {
 describe('The `getLocale` helper', () => {
   it('should return locale', () => {
     const actual = getLocale()()
-    const expected = 'en'
-
-    expect(actual).toEqual(expected)
-  })
-})
-
-describe('The `getSupportedLanguage` helper', () => {
-  it('should return language if passed locale is supported', () => {
-    const options = { supportedLanguages: ['fr'], defaultLanguage: 'en' }
-    const actual = getSupportedLanguage(options)('fr_FR')
-    const expected = 'fr'
-
-    expect(actual).toEqual(expected)
-  })
-
-  it('should return default language if passed locale is not supported', () => {
-    const options = { supportedLanguages: ['fr'], defaultLanguage: 'en' }
-    const actual = getSupportedLanguage(options)('foo_BAR')
     const expected = 'en'
 
     expect(actual).toEqual(expected)

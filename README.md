@@ -1,6 +1,6 @@
 # express-simple-locale
 
-A simple Express middleware to guess the short-locale of a user. It then saves the found locale on the request for further usage.
+A simple Express middleware to guess the **short-locale** of a user. It then saves the found locale on the request for further usage.
 
 It tries, in that order:
 
@@ -23,9 +23,9 @@ npm i --save express-simple-locale
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | key | String | `locale` | the key to save locale to on the request |
-| supportedLanguages | String[] | `[]` | available languages for the app |
-| defaultLanguage | String | `en` | language to fallback to |
-| cookieName | String | `locale` | cookie to try getting the language from |
+| supportedLocales | String[] | `[]` | available locales for the app |
+| defaultLocale | String | `en` | locale to fallback to |
+| cookieName | String | `locale` | cookie to try getting the locale from |
 
 
 ## Example
@@ -35,8 +35,8 @@ import locale from 'express-simple-locale'
 
 const localeMiddlewareOptions = {
   key: 'userLocale',
-  supportedLanguages: ['en', 'fr', 'it', 'es', 'de'],
-  defaultLanguage: 'en',
+  supportedLocales: ['en', 'fr', 'it', 'es', 'de'],
+  defaultLocale: 'en',
   cookieName: 'c00ki3z'
 }
 

@@ -1,5 +1,7 @@
 import get from 'lodash.get'
 
+const FALLBACK_LOCALE = 'en'
+
 const getAcceptedLanguage = (request = {}) => {
   if (typeof request.get !== 'function') {
     return
@@ -25,32 +27,29 @@ export const getLocaleFromRequest = options => request => {
   return Array.isArray(locale) ? locale[0] : locale
 }
 
-export const getLanguage = (locale = '') => {
+export const shortenLocale = (locale = '') => {
   return locale.split(/[-_\s]/g)[0].trim()
 }
 
 export const isLocaleSupported = options => locale => {
-  const supportedLanguages = get(options, 'supportedLanguages', [])
+  const supportedLocales = get(options, 'supportedLocales', [])
 
-  return supportedLanguages.indexOf(locale) > -1
+  return supportedLocales.indexOf(locale) > -1
 }
 
 export const getSupportedLocale = options => locale => {
-  const isSupported = isLocaleSupported(options)
-  const defaultLanguage = get(options, 'defaultLanguage', 'en')
+  const shortLocale = shortenLocale(locale)
+  const isSupported = isLocaleSupported(options)(shortLocale)
+  const defaultLocale = get(options, 'defaultLocale', FALLBACK_LOCALE)
+  const shortDefaultLocale = shortenLocale(defaultLocale)
 
-  return isSupported(locale) ? locale : defaultLanguage
+  return isSupported ? shortLocale : defaultLocale
 }
 
 export const getLocale = options => request => {
-  const getFromRequest = getLocaleFromRequest(options)
-  const getSupported = getSupportedLocale(options)
+  const locale = getLocaleFromRequest(options)(request)
 
-  return getSupported(getLanguage(getFromRequest(request)))
-}
-
-export const getSupportedLanguage = options => localeString => {
-  return getSupportedLocale(options)(getLanguage(localeString))
+  return getSupportedLocale(options)(locale)
 }
 
 export default options => (request, response, next) => {
