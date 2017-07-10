@@ -6,6 +6,7 @@
     "test": "jest",
     "lint": "standard"
   },
+  "main": "src/index.js",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
