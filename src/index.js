@@ -1,12 +1,23 @@
 import get from 'lodash.get'
 
+const getAcceptedLanguage = (request = {}) => {
+  if (typeof request.get !== 'function') {
+    return
+  }
+
+  const header = request.get('accept-language') || ''
+  const acceptedLanguages = header.split(';')
+
+  return acceptedLanguages[0]
+}
+
 export const getLocaleFromRequest = options => request => {
   const cookieName = get(options, 'cookieName', 'locale')
 
   const locale = (
     decodeURIComponent(get(request, 'query.locale', '')) ||
     get(request, ['cookies', cookieName]) ||
-    get(request, 'headers.accept-language', '').split(';')[0] ||
+    getAcceptedLanguage(request) ||
     get(request, 'acceptedLanguages') ||
     get(request, 'hostname.locale')
   )
