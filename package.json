@@ -1,7 +1,18 @@
 {
   "name": "express-simple-locale",
   "description": "A simple Express middleware to guess the short-locale of a user.",
-  "author": "N26",
+  "version": "0.1.0",
+  "author": {
+    "name": "Hugo Giraudel",
+    "email": "hugo.giraudel@n26.com",
+    "url": "https://twitter.com/n26"
+  },
+  "keywords": ["express", "middleware", "locale", "language", "i18n"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Papayer-GmbH/express-simple-locale"
+  },
+  "license": "MIT",
   "scripts": {
     "test": "jest",
     "lint": "standard"
