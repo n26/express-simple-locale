@@ -13,7 +13,11 @@ function getAcceptedLanguage (request) {
 
 function getQueryFromRequest (request) {
   return function (param, key) {
-    return decodeURIComponent(get(request, `query.${key}`)) || param
+    if (param) {
+      return param
+    }
+
+    return request.query[key] ? decodeURIComponent(request.query[key]) : null
   }
 }
 
