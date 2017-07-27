@@ -11,12 +11,24 @@ function getAcceptedLanguage (request) {
   return acceptedLanguages[0]
 }
 
+function getQueryFromRequest (request) {
+  return function (param, key) {
+    if (param) {
+      return param
+    }
+
+    return request.query[key] ? decodeURIComponent(request.query[key]) : null
+  }
+}
+
 function getLocaleFromRequest (options) {
   var cookieName = get(options, 'cookieName', 'locale')
+  var params = get(options, 'queryParams', ['locale'])
+  var queryParams = typeof params === 'string' ? [params] : params
 
   return function (request) {
     var locale = (
-      decodeURIComponent(get(request, 'query.locale', '')) ||
+      queryParams.reduce(getQueryFromRequest(request), null) ||
       get(request, ['cookies', cookieName]) ||
       getAcceptedLanguage(request) ||
       get(request, 'acceptedLanguages') ||

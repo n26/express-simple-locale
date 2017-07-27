@@ -26,6 +26,7 @@ npm i --save express-simple-locale
 | supportedLocales | String[] | `[]` | available locales for the app |
 | defaultLocale | String | `en` | locale to fallback to |
 | cookieName | String | `locale` | cookie to try getting the locale from |
+| queryParams | String\|String[] | `['locale']` | the query parameter(s) to look the locale from |
 
 
 ## Example
@@ -37,7 +38,8 @@ const localeMiddlewareOptions = {
   key: 'userLocale',
   supportedLocales: ['en', 'fr', 'it', 'es', 'de'],
   defaultLocale: 'en',
-  cookieName: 'c00ki3z'
+  cookieName: 'c00ki3z',
+  queryParams: ['locale', 'lang']
 }
 
 express()
