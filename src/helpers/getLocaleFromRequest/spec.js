@@ -47,6 +47,13 @@ describe('The `getLocaleFromRequest` helper', function () {
     expect(actual).toEqual(expected)
   })
 
+  it('should not throw if failing to decode query from request', function () {
+    var request = getMockedRequest({ query: { locale: '/at//%c0%ae%c0%ae%c0%ae%c0%c0%a%c0%c0%c0%c0%af%c0%af%c0%af%c0%c0%ae%c0%c0%ae%c0%ae%c0%afwindowswin.ini' } })
+    var actual = () => getLocaleFromRequest()(request)
+
+    expect(actual).not.toThrow()
+  })
+
   it('should return locale from query option if any', function () {
     var request = getMockedRequest({ query: { foo: 'foo' } })
     const options = {

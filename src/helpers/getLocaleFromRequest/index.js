@@ -17,7 +17,11 @@ function getQueryFromRequest (request) {
       return param
     }
 
-    return request.query[key] ? decodeURIComponent(request.query[key]) : null
+    try {
+      return request.query[key] ? decodeURIComponent(request.query[key]) : null
+    } catch (error) {
+      return null
+    }
   }
 }
 
