@@ -1,14 +1,19 @@
 {
   "name": "express-simple-locale",
-  "description":
-    "A simple Express middleware to guess the short-locale of a user.",
+  "description": "A simple Express middleware to guess the short-locale of a user.",
   "version": "0.2.2",
   "author": {
     "name": "Hugo Giraudel",
     "email": "hugo.giraudel@n26.com",
     "url": "https://twitter.com/n26"
   },
-  "keywords": ["express", "middleware", "locale", "language", "i18n"],
+  "keywords": [
+    "express",
+    "middleware",
+    "locale",
+    "language",
+    "i18n"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/n26/express-simple-locale"
@@ -20,9 +25,9 @@
   },
   "main": "src/index.js",
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "jest": "^22.4.3",
-    "standard": "^11.0.1"
+    "babel-eslint": "^10.0.1",
+    "jest": "^23.6.0",
+    "standard": "^12.0.1"
   },
   "dependencies": {
     "lodash.get": "^4.4.2"
