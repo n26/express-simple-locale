@@ -1,7 +1,7 @@
 {
   "name": "express-simple-locale",
   "description": "A simple Express middleware to guess the short-locale of a user.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": {
     "name": "Hugo Giraudel",
     "email": "hugo.giraudel@n26.com",
