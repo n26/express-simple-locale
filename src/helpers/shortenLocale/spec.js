@@ -22,6 +22,13 @@ describe('The `shortenLocale` helper', function () {
     expect(actual).toEqual(expected)
   })
 
+  it('should explode locale on commas', function () {
+    var actual = shortenLocale('de,en')
+    var expected = 'de'
+
+    expect(actual).toEqual(expected)
+  })
+
   it('should trim result', function () {
     var actual = shortenLocale('en -')
     var expected = 'en'
