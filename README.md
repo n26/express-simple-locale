@@ -10,7 +10,7 @@ It tries, in that order:
 4. The `acceptedLanguages` key from the request.
 5. The `hostname.locale` nested key from the request.
 
-When found, the locale is split on spaces, hyphens and underscores so only the first part gets returned (`en_GB` -> `en`).
+When found, the locale is split on spaces, hyphens, commas, and underscores so only the first part gets returned (`en_GB` -> `en`).
 
 ## Install
 
@@ -20,31 +20,30 @@ npm i --save express-simple-locale
 
 ## Options
 
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| key | String | `locale` | the key to save locale to on the request |
-| supportedLocales | String[] | `[]` | available locales for the app |
-| defaultLocale | String | `en` | locale to fallback to |
-| cookieName | String | `locale` | cookie to try getting the locale from |
-| queryParams | String\|String[] | `['locale']` | the query parameter(s) to look the locale from |
-
+| Name             | Type             | Default      | Description                                    |
+| ---------------- | ---------------- | ------------ | ---------------------------------------------- |
+| key              | String           | `locale`     |  the key to save locale to on the request      |
+| supportedLocales | String[]         | `[]`         |  available locales for the app                 |
+| defaultLocale    | String           | `en`         |  locale to fallback to                         |
+| cookieName       | String           | `locale`     | cookie to try getting the locale from          |
+| queryParams      | String\|String[] | `['locale']` | the query parameter(s) to look the locale from |
 
 ## Example
 
 ```js
-import locale from 'express-simple-locale'
+import locale from "express-simple-locale";
 
 const localeMiddlewareOptions = {
-  key: 'userLocale',
-  supportedLocales: ['en', 'fr', 'it', 'es', 'de'],
-  defaultLocale: 'en',
-  cookieName: 'c00ki3z',
-  queryParams: ['locale', 'lang']
-}
+  key: "userLocale",
+  supportedLocales: ["en", "fr", "it", "es", "de"],
+  defaultLocale: "en",
+  cookieName: "c00ki3z",
+  queryParams: ["locale", "lang"],
+};
 
 express()
   .use(locale(localeMiddlewareOptions))
   .use((request, response, next) => {
     // request.userLocale
-  })
+  });
 ```
