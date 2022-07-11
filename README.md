@@ -1,5 +1,5 @@
-> **Note**
-> This project has been deprecated and will not be receiving any updates anymore.
+> **Note**  
+> This project has been deprecated and will not be receiving any updates anymore.  
 > Please, consider using an alternative package.
 
 # express-simple-locale
