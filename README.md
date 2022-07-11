@@ -1,3 +1,7 @@
+> **Note**
+> This project has been deprecated and will not be receiving any updates anymore.
+> Please, consider using an alternative package.
+
 # express-simple-locale
 
 A simple Express middleware to guess the **short-locale** of a user. It then saves the found locale on the request for further usage.
